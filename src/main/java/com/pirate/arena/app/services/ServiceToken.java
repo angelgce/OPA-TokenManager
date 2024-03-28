@@ -33,6 +33,7 @@ public class ServiceToken extends ServiceValidateRequest implements IServiceToke
         byte[] keyByte = Decoders.BASE64.decode(key.get());
         return Keys.hmacShaKeyFor(keyByte);
     }
+
     @Override
     public Claims extractAllClaims(String token) throws Exception {
         return Jwts
@@ -42,6 +43,7 @@ public class ServiceToken extends ServiceValidateRequest implements IServiceToke
                 .parseClaimsJws(token)
                 .getBody();
     }
+
     @Override
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) throws Exception {
         final Claims claims = extractAllClaims(token);
@@ -68,19 +70,21 @@ public class ServiceToken extends ServiceValidateRequest implements IServiceToke
         } catch (Exception e) {
             throw new TokenInvalidException("[Token] Invalid token");
         }
-        return "{\n" +
-               "  \"principalId\": \"user\",\n" +
-               "  \"policyDocument\": {\n" +
-               "    \"Version\": \"2012-10-17\",\n" +
-               "    \"Statement\": [\n" +
-               "      {\n" +
-               "        \"Action\": \"execute-api:Invoke\",\n" +
-               "        \"Effect\": \"Allow\",\n" +
-               "        \"Resource\": [\"arn:aws:execute-api:us-east-1:571793088347:eoa8cg7fr1/authorizers/omyrq1\",\"arn:aws:execute-api:us-east-1:571793088347:eoa8cg7fr1/*/POST/createCode\"]\n" +
-               "      }\n" +
-               "    ]\n" +
-               "  }\n" +
-               "}";
+        return """
+                {
+                  "principalId": "user",
+                  "policyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                      {
+                        "Action": "execute-api:Invoke",
+                        "Effect": "Allow",
+                        "Resource": "$Token"
+                      }
+                    ]
+                  }
+                }
+                """.replace("$Token", requestAmazon.methodArn());
     }
 
 }
