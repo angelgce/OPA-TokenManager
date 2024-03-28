@@ -59,14 +59,13 @@ public class ServiceToken extends ServiceValidateRequest implements IServiceToke
     }
 
     public String isTokenValid(RequestAmazon requestAmazon) {
-
         validateInputs(Optional.ofNullable(requestAmazon));
         try {
             boolean isExpired = isTokenExpired(requestAmazon.authorizationToken());
             if (isExpired)
-                throw new TokenInvalidException("[Token] Invalid token");
+                throw new TokenInvalidException("[Token] Token Expired");
         } catch (Exception e) {
-            throw new TokenInvalidException("[Token] Invalid token ".concat("token: ".concat(requestAmazon.toString()).concat(" => ".concat(e.getMessage()))));
+            throw new TokenInvalidException("[Token] Invalid token");
         }
         return "success";
     }
