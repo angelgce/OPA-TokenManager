@@ -29,7 +29,7 @@ public class LambdaFunction {
     @Bean
     public Function<RequestAmazon, ResponseEntity<Map<String, String>>> sendEmail() {
         return value -> ResponseEntity.ok()
-                .body(Collections.singletonMap("data", serviceToken.isTokenValid(value));
+                .body(Collections.singletonMap("data", serviceToken.isTokenValid(value)));
     }
 
 }
