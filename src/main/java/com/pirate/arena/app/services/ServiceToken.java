@@ -25,12 +25,12 @@ public class ServiceToken extends ServiceValidateRequest implements IServiceToke
     private final Environment environment;
     private String SECRET_KEY = "413F4428472B4B6250655367566B5970337336763979244226452948404D6351";
 
+
     private Key getSignInKey() {
         Optional<String> key = Optional.ofNullable(environment.getProperty("SECRET_KEY"));
         if (key.isEmpty())
             key = Optional.ofNullable(SECRET_KEY);
         byte[] keyByte = Decoders.BASE64.decode(key.get());
-        log.info("Secret key {} ", key.get());
         return Keys.hmacShaKeyFor(keyByte);
     }
 
