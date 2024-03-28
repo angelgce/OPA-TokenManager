@@ -65,7 +65,7 @@ public class ServiceToken extends ServiceValidateRequest implements IServiceToke
             if (isExpired)
                 throw new TokenInvalidException("[Token] Invalid token");
         } catch (Exception e) {
-            throw new TokenInvalidException("[Token] Invalid token");
+            throw new TokenInvalidException("[Token] Invalid token ".concat("token: ".concat(token.concat(" => "))).concat(e.getMessage()));
         }
         return ResponseEntity.ok().build();
     }
