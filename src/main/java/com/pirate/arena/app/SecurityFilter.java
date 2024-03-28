@@ -19,7 +19,7 @@ public class SecurityFilter implements Filter {
 
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
-        String token = httpServletRequest.getHeader("Authorization");
+        String token = httpServletRequest.getHeader("authorizationToken");
         log.info("Amazon token ... {}", httpServletRequest.toString());
         if (token == null || token.isEmpty() || !token.startsWith("Bearer ")) {
             ObjectMapper mapper = new ObjectMapper();
