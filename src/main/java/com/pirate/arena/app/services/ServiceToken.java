@@ -1,6 +1,7 @@
 package com.pirate.arena.app.services;
 
 import com.pirate.arena.app.exceptions.TokenInvalidException;
+import com.pirate.arena.app.request.RequestAmazon;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -57,17 +58,17 @@ public class ServiceToken extends ServiceValidateRequest implements IServiceToke
         return extraExpiration(token).before(new Date());
     }
 
-    public ResponseEntity<String> isTokenValid(String token) {
+    public String isTokenValid(RequestAmazon requestAmazon) {
 
-        validateInputs(Optional.ofNullable(token));
+        validateInputs(Optional.ofNullable(requestAmazon));
         try {
-            boolean isExpired = isTokenExpired(token);
+            boolean isExpired = isTokenExpired(requestAmazon.authorizationToken());
             if (isExpired)
                 throw new TokenInvalidException("[Token] Invalid token");
         } catch (Exception e) {
-            throw new TokenInvalidException("[Token] Invalid token ".concat("token: ".concat(token.concat(" => "))).concat(e.getMessage()));
+            throw new TokenInvalidException("[Token] Invalid token ".concat("token: ".concat(requestAmazon.toString()).concat(" => ".concat(e.getMessage()))));
         }
-        return ResponseEntity.ok().build();
+        return "success";
     }
 
 }
