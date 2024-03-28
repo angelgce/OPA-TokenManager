@@ -75,7 +75,7 @@ public class ServiceToken extends ServiceValidateRequest implements IServiceToke
                "      {\n" +
                "        \"Action\": \"execute-api:Invoke\",\n" +
                "        \"Effect\": \"Allow\",\n" +
-               "        \"Resource\": \"arn:aws:execute-api:us-east-1:571793088347:eoa8cg7fr1/authorizers/omyrq1\"\n" +
+               "        \"Resource\": [\"arn:aws:execute-api:us-east-1:571793088347:eoa8cg7fr1/authorizers/omyrq1\",\"arn:aws:execute-api:us-east-1:571793088347:eoa8cg7fr1/*/POST/createCode\"]\n" +
                "      }\n" +
                "    ]\n" +
                "  }\n" +
