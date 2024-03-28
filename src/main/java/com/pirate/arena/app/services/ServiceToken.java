@@ -67,7 +67,19 @@ public class ServiceToken extends ServiceValidateRequest implements IServiceToke
         } catch (Exception e) {
             throw new TokenInvalidException("[Token] Invalid token");
         }
-        return "success";
+        return "{\n" +
+               "  \"principalId\": \"user\",\n" +
+               "  \"policyDocument\": {\n" +
+               "    \"Version\": \"2012-10-17\",\n" +
+               "    \"Statement\": [\n" +
+               "      {\n" +
+               "        \"Action\": \"execute-api:Invoke\",\n" +
+               "        \"Effect\": \"Allow\",\n" +
+               "        \"Resource\": \"arn:aws:execute-api:us-east-1:571793088347:eoa8cg7fr1/authorizers/omyrq1\"\n" +
+               "      }\n" +
+               "    ]\n" +
+               "  }\n" +
+               "}";
     }
 
 }
