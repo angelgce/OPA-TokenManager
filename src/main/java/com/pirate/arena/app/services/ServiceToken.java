@@ -9,8 +9,10 @@ import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Key;
 import java.util.Date;
 import java.util.Optional;
@@ -23,7 +25,7 @@ import java.util.function.Function;
 public class ServiceToken extends ServiceValidateRequest implements IServiceToken {
 
     private final Environment environment;
-    private String SECRET_KEY = "413F4428472B4B6250655367566B5970337336763979244226452948404D635";
+    private String SECRET_KEY = "413F4428472B4B6250655367566B5970337336763979244226452948404D6351";
 
 
     private Key getSignInKey() {
@@ -56,16 +58,17 @@ public class ServiceToken extends ServiceValidateRequest implements IServiceToke
         return extraExpiration(token).before(new Date());
     }
 
-    public boolean isTokenValid(RequestToken requestToken) {
-        validateInputs(Optional.ofNullable(requestToken));
+    public ResponseEntity<String> isTokenValid(String token) {
+
+        validateInputs(Optional.ofNullable(token));
         try {
-            boolean isExpired = isTokenExpired(requestToken.token());
+            boolean isExpired = isTokenExpired(token);
             if (isExpired)
                 throw new TokenInvalidException("[Token] Invalid token");
         } catch (Exception e) {
             throw new TokenInvalidException("[Token] Invalid token");
         }
-        return true;
+        return ResponseEntity.ok().build();
     }
 
 }

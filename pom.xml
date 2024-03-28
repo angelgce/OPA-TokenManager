@@ -94,6 +94,7 @@
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.security.oauth/spring-security-oauth2 -->
 
     </dependencies>
     <dependencyManagement>
