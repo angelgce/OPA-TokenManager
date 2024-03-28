@@ -23,7 +23,7 @@ import java.util.function.Function;
 public class ServiceToken extends ServiceValidateRequest implements IServiceToken {
 
     private final Environment environment;
-    private String SECRET_KEY = "413F4428472B4B6250655367566B5970337336763979244226452948404D6351";
+    private String SECRET_KEY = "413F4428472B4B6250655367566B5970337336763979244226452948404D635";
 
 
     private Key getSignInKey() {
