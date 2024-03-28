@@ -1,7 +1,6 @@
 package com.pirate.arena.app.services;
 
 import com.pirate.arena.app.exceptions.TokenInvalidException;
-import com.pirate.arena.app.request.RequestToken;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
